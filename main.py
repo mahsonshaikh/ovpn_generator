@@ -30,3 +30,7 @@ def interactivity():
     
     return jsonify({"response_action": "clear"})
 # print(temporary_data)
+
+
+if __name__ == '__main__':
+    app.run(port=5000)
