@@ -9,7 +9,14 @@ from SlackController import SlackController
 app = Flask(__name__)
 slack_controller = SlackController()
 
-@app.route('/slack/events', methods=["POST"])
+
+@app.route('/testapp/events', methods=["POST"])
+def test_data():
+    return "APP is working"
+
+
+
+@app.route('/testapp/events', methods=["POST"])
 def slack_events():
     # Running a simple command, e.g., 'ls'
     payload = json.loads(request.form["payload"])
