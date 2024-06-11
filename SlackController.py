@@ -24,19 +24,19 @@ class SlackController:
 
       try:
           # Upload the file
-          response_ovpn_file = client.files_upload(
+          response_ovpn_file = client.files_upload_v2(
               channels=user_id,
               file=ovpn_file_path,
               title="OVPN FILE"
           )
 
-          response_crt_file = client.files_upload(
+          response_crt_file = client.files_upload_v2(
               channels=user_id,
               file=ovpn_crt_file_path,
               title="CA CRT FILE"
           )
 
-          response_qr = client.files_upload(
+          response_qr = client.files_upload_v2(
             channels=user_id,
             file=qr_file_path,
             title="CA CRT FILE"
