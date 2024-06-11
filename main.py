@@ -10,7 +10,7 @@ app = Flask(__name__)
 slack_controller = SlackController()
 
 
-@app.route('/testapp', methods=["POST"])
+@app.route('/testapp')
 def test_data():
     return "APP is working"
 
