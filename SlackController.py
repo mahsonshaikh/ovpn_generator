@@ -20,8 +20,10 @@ class SlackController:
       ovpn_crt_file_path = './ca.crt'
       qr_file_path = f'./{username}_qr.png'
 
+      print("This is the Member:" + user_id)
+      response = client.conversations_open(users=[user_id])
       # Channel to send the file to
-      CHANNEL_ID = 'D06155KLB40'
+      CHANNEL_ID = response
       # channel_id = 'YOUR_CHANNEL_ID'
       # print(user_id)
 
