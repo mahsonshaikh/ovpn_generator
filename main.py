@@ -29,8 +29,6 @@ def slack_events():
         user_id = data.get('user_id')
         print(f"{username} now running subprocess")
         command = f'google-authenticator --time-based --disallow-reuse --force --rate-limit=3 --rate-time=30 --window-size=3 -l "{username}@dc-test.net" -s /etc/openvpn/otp/{username}.google_authenticator --quiet'
-        time.sleep(5)
-        
         result = subprocess.run(command, shell=True, check=True)
         print(f"{username} has now run subprocess")
         convertImageToPng(username=username)
