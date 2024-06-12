@@ -6,6 +6,7 @@ import requests
 import subprocess
 from SlackController import SlackController
 import time
+import threading
 
 app = Flask(__name__)
 slack_controller = SlackController()
@@ -33,7 +34,8 @@ def slack_events():
         result = subprocess.run(command, shell=True, check=True)
         print(f"{username} has now run subprocess")
         convertImageToPng(username=username)
-        slack_controller.upload_file(username=username, user_id=user_id )
+        slack_thread = threading.Thread(target=slack_controller.upload_file(), args=(username, user_id,))
+        slack_thread.start()
         # Printing the output and the return code
         print(result.stdout)
         print("Return code:", result.returncode)
