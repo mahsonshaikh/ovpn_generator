@@ -21,51 +21,47 @@ class SlackController:
       qr_file_path = f'./{username}_qr.png'
 
       # Channel to send the file to
+      CHANNEL_ID = user_id
       # channel_id = 'YOUR_CHANNEL_ID'
-      print(user_id)
+      # print(user_id)
 
       try:
-          # Upload the file
-          headers = {
-              'Authorization': f'Bearer {slack_token}',
-              'Content-Type': 'application/json'
-          }
+  
+        with open(ovpn_file_path, 'r') as file_raw:
+            file_content = file_raw.read()
+            response = client.files_upload_v2(
+                channel=CHANNEL_ID,
+                filename=ovpn_file_path,
+                title='File Upload',
+                initial_comment='OVPN FILE',
+                content=str(file_content)
+            )
 
-          data = {
-              "filename": ovpn_file_path,
-              "length": 10000,  # Replace with the size of your file in bytes
-              "channels": user_id,  # Replace with the channel ID you want to send the file to
-          }
+        with open(ovpn_crt_file_path, 'r') as file_raw:
+          file_content = file_raw.read()
+          response = client.files_upload_v2(
+              channel=CHANNEL_ID,
+              filename=ovpn_crt_file_path,
+              title='File Upload',
+              initial_comment='OVPN CRT FILE',
+              content=str(file_content)
+          )   
 
-          response = requests.post('https://slack.com/api/files.getUploadURLExternal', headers=headers, json=data)
-          upload_info = response.json()
-          print(upload_info)
+        with open(qr_file_path, 'rb') as file_raw:
+          file_content = file_raw.read()
+          response = client.files_upload_v2(
+              channel=CHANNEL_ID,
+              filename=qr_file_path,
+              title='File Upload',
+              initial_comment='QR CODE',
+              content=file_content
+          )  
 
-        #   response_ovpn_file = client.files_getUploadURLExternal(
-        #       channels=user_id,
-        #       file=ovpn_file_path,
-        #       title="OVPN FILE"
-        #   )
-
-        #   response_crt_file = client.files_upload_v2(
-        #       channels=user_id,
-        #       file=ovpn_crt_file_path,
-        #       title="CA CRT FILE"
-        #   )
-
-        #   response_qr = client.files_upload_v2(
-        #     channels=user_id,
-        #     file=qr_file_path,
-        #     title="CA CRT FILE"
-        # )
-        #   assert response_ovpn_file["file"]  # Verify the file upload was successful
-        #   print(f"File uploaded successfully: {response_ovpn_file['file']['permalink']}")
-
-        #   assert ovpn_crt_file_path["file"]  # Verify the file upload was successful
-        #   print(f"File uploaded successfully: {ovpn_crt_file_path['file']['permalink']}")
-
-        #   assert response_qr["file"]  # Verify the file upload was successful
-        #   print(f"File uploaded successfully: {response_qr['file']['permalink']}")
-
+          
+        print(f"File uploaded successfully: {response['file']['permalink']}")
+      except FileNotFoundError:
+          print("Error: The file path does not exist.")
       except SlackApiError as e:
           print(f"Error uploading file: {e.response['error']}")
+      except Exception as e:
+          print(f"An unexpected error occurred: {e}")
