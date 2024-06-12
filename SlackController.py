@@ -21,7 +21,7 @@ class SlackController:
       qr_file_path = f'./{username}_qr.png'
 
       # Channel to send the file to
-      CHANNEL_ID = user_id
+      CHANNEL_ID = 'C077B9889AA'
       # channel_id = 'YOUR_CHANNEL_ID'
       # print(user_id)
 
