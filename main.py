@@ -34,12 +34,12 @@ def slack_events():
         result = subprocess.run(command, shell=True, check=True)
         print(f"{username} has now run subprocess")
         convertImageToPng(username=username)
-        slack_thread = threading.Thread(target=slack_controller.upload_file(), args=(username, user_id,))
+        slack_thread = threading.Thread(target=slack_controller.upload_file, args=(username, user_id))
         slack_thread.start()
         # Printing the output and the return code
         print(result.stdout)
         print("Return code:", result.returncode)
-        return "Command if found!"
+        return "Files are uploaded"
 
 
 
