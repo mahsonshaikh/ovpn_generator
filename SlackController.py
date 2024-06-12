@@ -23,7 +23,7 @@ class SlackController:
       print("This is the Member:" + user_id)
       response = client.conversations_open(users=[user_id])
       # Channel to send the file to
-      CHANNEL_ID = response
+      CHANNEL_ID = response['channel']['id']
       # channel_id = 'YOUR_CHANNEL_ID'
       # print(user_id)
 
