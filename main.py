@@ -23,7 +23,7 @@ def slack_events():
     # Running a simple command, e.g., 'ls'
     data = request.form
 
-    if data.get("command") == "/testapp":
+    if data.get("command") == "/generate_vpn":
         trigger_id = data.get("trigger_id")
         username = data.get("user_name")
         user_id = data.get('user_id')
