@@ -37,17 +37,7 @@ class SlackController:
                 title='File Upload',
                 initial_comment='OVPN FILE',
                 content=str(file_content)
-            )
-
-        with open(ovpn_crt_file_path, 'r') as file_raw:
-          file_content = file_raw.read()
-          response = client.files_upload_v2(
-              channel=CHANNEL_ID,
-              filename=ovpn_crt_file_path,
-              title='File Upload',
-              initial_comment='OVPN CRT FILE',
-              content=str(file_content)
-          )   
+            )   
 
         with open(qr_file_path, 'rb') as file_raw:
           file_content = file_raw.read()
